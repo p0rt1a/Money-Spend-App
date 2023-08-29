@@ -1,23 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import { useSelector } from "react-redux";
+import ItemCard from "./components/ItemCard";
+import { Flex, Heading } from "@chakra-ui/react";
+import Header from "./components/Header";
+import Slip from "./components/Slip";
 
 function App() {
+  const items = useSelector((state) => state.items.items);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={{ padding: "40px" }}>
+      <Heading as="h1" color={"green.500"} textAlign={"center"} mb={10}>
+        Spend Money App
+      </Heading>
+      <Header />
+
+      <Flex
+        wrap={"wrap"}
+        gap={20}
+        justifyContent={"center"}
+        alignItems={"center"}
+        my={10}
+      >
+        {items.map((item, i) => {
+          return (
+            <div key={i}>
+              <ItemCard props={item} />
+            </div>
+          );
+        })}
+      </Flex>
+
+      <Slip />
     </div>
   );
 }
